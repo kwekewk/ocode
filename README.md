@@ -1,5 +1,5 @@
 ---
-title: poe-API
+title: One-API
 emoji: 💻🐳
 colorFrom: red
 colorTo: blue
