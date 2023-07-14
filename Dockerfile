@@ -21,6 +21,7 @@ RUN rm -f /etc/apt/sources.list.d/*.list && \
     build-essential \
     libsndfile-dev \
     software-properties-common \
+    nginx \
   && rm -rf /var/lib/apt/lists/*
 
 # Install openvscode-server runtime dependencies
@@ -41,6 +42,11 @@ WORKDIR /app
 RUN adduser --disabled-password --gecos '' --shell /bin/bash user \
  && chown -R user:user /app
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-user
+
+#nginx
+RUN mkdir -p /var/cache/nginx /var/log/nginx /var/lib/nginx && \
+    touch /var/run/nginx.pid && \
+    chown -R user:user /var/cache/nginx /var/log/nginx /var/lib/nginx /var/run/nginx.pid
 
 # Fetch the latest version of OpenVSCode Server
 RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/latest \
@@ -91,9 +97,11 @@ RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add 
 USER user
 
 # All users can use /home/user as their home directory
-ENV HOME=/home/user
+ENV HOME=/home/user \
+    PATH=/home/user/.local/bin:$PATH
 RUN mkdir $HOME/.cache $HOME/.config \
- && chmod -R 777 $HOME
+&& chown -R user:user $HOME \
+&& chmod 700 $HOME/.cache $HOME/.config
 
 # Set up the Conda environment
 ENV CONDA_AUTO_UPDATE_CONDA=false \
@@ -137,6 +145,7 @@ RUN --mount=target=requirements.txt,source=requirements.txt \
 
 # Copy the current directory contents into the container at $HOME/app setting the owner to the user
 COPY --chown=user . $HOME/app
+COPY --chown=user nginx.conf /etc/nginx/sites-available/default
 
 RUN chmod +x start_server.sh
 
@@ -147,7 +156,5 @@ ENV PYTHONUNBUFFERED=1 \
 	GRADIO_THEME=huggingface \
 	SYSTEM=spaces \
 	SHELL=/bin/bash
-
-EXPOSE 7860 3000 3700
 
 CMD ["./start_server.sh"]
