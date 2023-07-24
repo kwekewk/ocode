@@ -21,8 +21,7 @@ RUN rm -f /etc/apt/sources.list.d/*.list && \
     libx11-6 \
     build-essential \
     libsndfile-dev \
-    software-properties-common \
-    nginx \
+    software-properties-common 
   && rm -rf /var/lib/apt/lists/*
 
 # Install openvscode-server runtime dependencies
