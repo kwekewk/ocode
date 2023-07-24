@@ -62,7 +62,7 @@ RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/la
     && rm -rf /var/tmp/*
 
 # Install Node.js and configurable-http-proxy
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g configurable-http-proxy \
     && rm -rf /var/lib/apt/lists/* \
