@@ -1,2 +1,3 @@
 cloudflared
 localtunnel
+code-server --unsafe-perm
