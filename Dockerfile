@@ -1,5 +1,4 @@
 FROM phusion/baseimage:master
-FROM ckt1031/one-api-en:latest
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Jakarta
@@ -148,6 +147,8 @@ COPY --chown=user . $HOME/app
 COPY --chown=user nginx.conf /etc/nginx/sites-available/default
 
 RUN chmod +x start_server.sh
+
+FROM ckt1031/one-api-en:latest
 
 ENV PYTHONUNBUFFERED=1 \
 	GRADIO_ALLOW_FLAGGING=never \
