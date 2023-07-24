@@ -1,4 +1,5 @@
 FROM phusion/baseimage:master
+FROM ckt1031/one-api-en:latest
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Jakarta

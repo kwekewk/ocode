@@ -5,7 +5,7 @@ service nginx start
 echo "Starting VSCode Server..."
 /app/openvscode-server/bin/openvscode-server --host 0.0.0.0 --port 7860 --without-connection-token "${@}" &
 
-/home/user/one-api/one-api --port 3000 --log-dir ./logs &
+#/home/user/one-api/one-api --port 3000 --log-dir ./logs &
 
 #echo "Starting Code Tunnel..."
 #/usr/bin/code tunnel --accept-server-license-terms &
