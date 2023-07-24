@@ -148,7 +148,7 @@ COPY --chown=user nginx.conf /etc/nginx/sites-available/default
 
 RUN chmod +x start_server.sh
 
-FROM ckt1031/one-api-en:latest
+#FROM ckt1031/one-api-en:latest
 
 ENV PYTHONUNBUFFERED=1 \
 	GRADIO_ALLOW_FLAGGING=never \
