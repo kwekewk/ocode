@@ -5,3 +5,4 @@ nginx
 autossh
 tmux
 ripgrep
+libsecret-1-dev
