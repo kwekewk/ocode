@@ -1,4 +1,4 @@
-FROM cruizba/ubuntu-dind
+FROM registry.nestybox.com/nestybox/ubuntu-bionic-systemd-docker
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Jakarta
