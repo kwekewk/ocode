@@ -126,11 +126,11 @@ RUN --mount=target=/root/packages.txt,source=packages.txt \
     xargs -r -a /root/packages.txt apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-RUN --mount=target=/root/on_startup.sh,source=on_startup.sh,readwrite \
-	bash /root/on_startup.sh
-
 RUN --mount=target=/root/npm_packages.txt,source=npm_packages.txt \
     xargs -r -a /root/npm_packages.txt /usr/bin/npm install -g  \
+
+RUN --mount=target=/root/on_startup.sh,source=on_startup.sh,readwrite \
+	bash /root/on_startup.sh
 
 #######################################
 # End root user section
