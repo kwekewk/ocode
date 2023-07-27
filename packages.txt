@@ -3,5 +3,4 @@ neofetch
 neovim
 nginx
 autossh
-ripgrep
 tmux
