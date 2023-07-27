@@ -1,4 +1,4 @@
-FROM phusion/baseimage:master
+FROM ubuntu
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Jakarta
