@@ -7,7 +7,7 @@ echo "Starting VSCode Server..."
 
 #/home/user/one-api/one-api --port 3000 --log-dir ./logs &
 
-/usr/bin/code-server --bind-addr 0.0.0.0:8080 --auth password --user-data-$ &
+/usr/bin/code-server --bind-addr 0.0.0.0:8080 --auth none &
 
 #echo "Starting Code Tunnel..."
 #/usr/bin/code tunnel --accept-server-license-terms &
