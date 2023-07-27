@@ -2,6 +2,7 @@ cloudflared
 localtunnel
 code-server --unsafe-perm
 @microsoft/1ds-core-js
+@vscode/spdlog
 yazl
 yauzl
 minimist
