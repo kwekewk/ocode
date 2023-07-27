@@ -1,4 +1,4 @@
-FROM docker.io/phusion/baseimage:master
+FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy-version-abb6e73a
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Jakarta
