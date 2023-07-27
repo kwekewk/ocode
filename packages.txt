@@ -4,3 +4,4 @@ neovim
 nginx
 autossh
 ripgrep
+tmux
