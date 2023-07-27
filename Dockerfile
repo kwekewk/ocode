@@ -1,4 +1,4 @@
-FROM phusion/baseimage:master
+FROM docker.io/phusion/baseimage:master
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Jakarta
