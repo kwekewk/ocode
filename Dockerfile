@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy-version-abb6e73a
+FROM phusion/baseimage:master
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Jakarta
