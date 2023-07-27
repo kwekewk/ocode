@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM cruizba/ubuntu-dind
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Jakarta
