@@ -127,7 +127,7 @@ RUN --mount=target=/root/packages.txt,source=packages.txt \
     && rm -rf /var/lib/apt/lists/*
 
 RUN --mount=target=/root/npm_packages.txt,source=npm_packages.txt \
-    xargs -r -a /root/npm_packages.txt /usr/bin/npm install -g  \
+    xargs -r -a /root/npm_packages.txt /usr/bin/npm install -g
 
 RUN --mount=target=/root/on_startup.sh,source=on_startup.sh,readwrite \
 	bash /root/on_startup.sh
