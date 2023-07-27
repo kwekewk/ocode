@@ -5,7 +5,9 @@
 # cd transformers && pip install -e ".[dev]"
 # useradd -m aku && adduser aku sudo && echo 'aku:aku' | sudo chpasswd && sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
 # /usr/bin/newuidmap 1500 0 1000 1 1 100000 65536
-git clone https://github.com/ckt1031/one-api/
+cd /usr/lib/node_modules/code-server/lib/vscode/ && npm i . --production --force
+
+#git clone https://github.com/ckt1031/one-api/
 
 # Build the frontend
 #cd one-api/web
