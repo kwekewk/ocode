@@ -6,3 +6,5 @@ code-server --unsafe-perm
 yazl
 yauzl
 minimist
+node-pty
+xterm-headless
