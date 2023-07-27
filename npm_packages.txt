@@ -1,3 +1,7 @@
 cloudflared
 localtunnel
 code-server --unsafe-perm
+@microsoft/1ds-core-js
+yazl
+yauzl
+minimist
