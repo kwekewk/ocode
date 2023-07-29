@@ -62,8 +62,7 @@ RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/la
     && rm -rf /var/tmp/*
 
 # Fetch the latest version of OpenVSCode Server
-RUN echo "**** install code-server ****" && \
-    CODE_RELEASE=$(curl -sX GET "https://api.github.com/repos/coder/code-server/releases/latest" \
+RUN curl -s "https://api.github.com/repos/coder/code-server/releases/latest" \
     | grep "browser_download_url.*linux-amd64.tar.gz" \
     | cut -d : -f 2,3 \
     | tr -d \" \
