@@ -63,22 +63,16 @@ RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/la
 
 # Fetch the latest version of OpenVSCode Server
 RUN echo "**** install code-server ****" && \
-  CODE_RELEASE=$(curl -sX GET "https://api.github.com/repos/coder/code-server/releases/latest" \
+    CODE_RELEASE=$(curl -sX GET "https://api.github.com/repos/cdr/code-server/releases/latest" \
     | grep 'browser_download_url.*linux-x64.tar.gz"' \
     | cut -d : -f 2,3 \
-    | tr -d \") && \
-  mkdir -p /app/code-server && \
-  curl -o \
-    /tmp/code-server.tar.gz -L \
-    "$CODE_RELEASE" && \
-  tar xf /tmp/code-server.tar.gz -C \
-    /app/code-server --strip-components=1 && \
-  echo "**** clean up ****" && \
-  apt-get clean && \
-  rm -rf \
-    /tmp/* \
-    /var/lib/apt/lists/* \
-    /var/tmp/*
+    | tr -d '\"') && \
+    mkdir -p /app/code-server && \
+    curl -o /tmp/code-server.tar.gz -L "$CODE_RELEASE" && \
+    tar xf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1 && \
+    echo "**** clean up ****" && \
+    apt-get clean && \
+    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 # Install Node.js and configurable-http-proxy
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
