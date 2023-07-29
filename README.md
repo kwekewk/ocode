@@ -1,10 +1,10 @@
 ---
-title: One-API
+title: Workspace
 emoji: 💻🐳
 colorFrom: red
 colorTo: blue
 sdk: docker
-pinned: false
+pinned: true
 tags:
 - vscode
 duplicated_from: Unsterile/onee

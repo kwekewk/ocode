@@ -1,10 +1,10 @@
 cloudflared
 localtunnel
-code-server --unsafe-perm
-@microsoft/1ds-core-js
-@vscode/spdlog
-yazl
-yauzl
-minimist
-node-pty
-xterm-headless
+#code-server --unsafe-perm
+#@microsoft/1ds-core-js
+#@vscode/spdlog
+#yazl
+#yauzl
+#minimist
+#node-pty
+#xterm-headless
