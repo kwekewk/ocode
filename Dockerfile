@@ -64,12 +64,12 @@ RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/la
 # Fetch the latest version of OpenVSCode Server
 RUN echo "**** install code-server ****" && \
     CODE_RELEASE=$(curl -sX GET "https://api.github.com/repos/coder/code-server/releases/latest" \
-    | grep 'browser_download_url.*linux-amd64.tar.gz"' \
+    | grep "browser_download_url.*linux-amd64.tar.gz" \
     | cut -d : -f 2,3 \
-    | tr -d '\"') && \
+    | tr -d \" \
+    | wget -qi - -O /tmp/code-server.tar.gz && \
     mkdir -p /app/code-server && \
-    curl -o /tmp/code-server.tar.gz -L "$CODE_RELEASE" && \
-    tar xf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1 && \
+    tar -xzf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1 && \
     echo "**** clean up ****" && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
