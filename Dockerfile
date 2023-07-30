@@ -137,15 +137,16 @@ RUN --mount=target=/root/packages.txt,source=packages.txt \
 RUN --mount=target=/root/on_startup.sh,source=on_startup.sh,readwrite \
 	bash /root/on_startup.sh
 
+# NPM Global
+RUN --mount=target=/root/npm_packages.txt,source=npm_packages.txt \
+    xargs -r -a /root/npm_packages.txt /usr/bin/npm install -g
+
+
 #######################################
 # End root user section
 #######################################
 
 USER user
-
-# NPM Global
-RUN --mount=target=/root/npm_packages.txt,source=npm_packages.txt \
-    xargs -r -a /root/npm_packages.txt /usr/bin/npm install -g
 
 # Python packages
 RUN --mount=target=requirements.txt,source=requirements.txt \
