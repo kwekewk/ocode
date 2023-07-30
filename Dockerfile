@@ -55,29 +55,20 @@ RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/la
     | wget -qi - -O /tmp/openvscode-server.tar.gz && \
     # Install OpenVSCode Server
     mkdir -p /app/openvscode-server && \
-    tar -xzf /tmp/openvscode-server.tar.gz --strip-components=1 -C /app/openvscode-server \
-    # Clean up the temporary file
-    && rm /tmp/openvscode-server.tar.gz \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/tmp/*
+    tar -xzf /tmp/openvscode-server.tar.gz --strip-components=1 -C /app/openvscode-server 
 
-# Fetch the latest version of OpenVSCode Server
+# Fetch the latest version of Code Server
 RUN curl -s "https://api.github.com/repos/coder/code-server/releases/latest" \
     | grep "browser_download_url.*linux-amd64.tar.gz" \
     | cut -d : -f 2,3 \
     | tr -d \" \
     | wget -qi - -O /tmp/code-server.tar.gz && \
     mkdir -p /app/code-server && \
-    tar -xzf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1 && \
-    echo "**** clean up ****" && \
-    apt-get clean && \
-    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
+    tar -xzf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1 
 
 # Install Node.js and configurable-http-proxy
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/tmp/*
+    && apt-get install -y nodejs 
    
 # Install Golang
 ARG GOLANG_VERSION="1.20"
@@ -102,7 +93,8 @@ RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add 
     && apt-get install -y code \
     && rm -rf /var/cache/apt/* \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/tmp/*
+    && rm -rf /var/tmp/* \
+    && rm -rf /tmp/*
 
 USER user
 
@@ -115,9 +107,7 @@ RUN mkdir $HOME/.cache $HOME/.config \
 
 RUN mkdir /app/.npm-global \
     && npm config set prefix '/app/.npm-global' \
-    && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.profile \
-    && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.bashrc \
-    && chown -R user:user /app/.npm-global \
+    && echo 'export PATH=/app/.npm-global/bin:$PATH' | tee -a ~/.profile ~/.bashrc \
     && npm install -g configurable-http-proxy 
  
 # Set up the Conda environment
@@ -144,9 +134,6 @@ RUN --mount=target=/root/packages.txt,source=packages.txt \
     xargs -r -a /root/packages.txt apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-RUN --mount=target=/root/npm_packages.txt,source=npm_packages.txt \
-    xargs -r -a /root/npm_packages.txt /usr/bin/npm install -g
-
 RUN --mount=target=/root/on_startup.sh,source=on_startup.sh,readwrite \
 	bash /root/on_startup.sh
 
@@ -155,6 +142,10 @@ RUN --mount=target=/root/on_startup.sh,source=on_startup.sh,readwrite \
 #######################################
 
 USER user
+
+# NPM Global
+RUN --mount=target=/root/npm_packages.txt,source=npm_packages.txt \
+    xargs -r -a /root/npm_packages.txt /usr/bin/npm install -g
 
 # Python packages
 RUN --mount=target=requirements.txt,source=requirements.txt \
