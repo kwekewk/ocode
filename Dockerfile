@@ -73,18 +73,18 @@ RUN curl -s "https://api.github.com/repos/coder/code-server/releases/latest" \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
+# Install Node.js and configurable-http-proxy
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/tmp/*
+
 RUN mkdir /app/.npm-global \
     && npm config set prefix '/app/.npm-global' \
     && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.profile \
     && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.bashrc \
-    && chown -R user:user /app/.npm-global
-
-# Install Node.js and configurable-http-proxy
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs \
+    && chown -R user:user /app/.npm-global \
     && npm install -g configurable-http-proxy \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/tmp/*
     
 # Install Golang
 ARG GOLANG_VERSION="1.20"
