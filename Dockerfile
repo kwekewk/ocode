@@ -84,7 +84,7 @@ RUN mkdir /app/.npm-global \
     && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.profile \
     && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.bashrc \
     && chown -R user:user /app/.npm-global \
-    && npm install -g configurable-http-proxy \
+    && npm install -g configurable-http-proxy 
     
 # Install Golang
 ARG GOLANG_VERSION="1.20"
