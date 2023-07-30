@@ -78,14 +78,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/tmp/*
-
-RUN mkdir /app/.npm-global \
-    && npm config set prefix '/app/.npm-global' \
-    && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.profile \
-    && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.bashrc \
-    && chown -R user:user /app/.npm-global \
-    && npm install -g configurable-http-proxy 
-    
+   
 # Install Golang
 ARG GOLANG_VERSION="1.20"
 RUN curl -LO "https://golang.org/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz" && \
@@ -120,6 +113,13 @@ RUN mkdir $HOME/.cache $HOME/.config \
 && chown -R user:user $HOME \
 && chmod 700 $HOME/.cache $HOME/.config
 
+RUN mkdir /app/.npm-global \
+    && npm config set prefix '/app/.npm-global' \
+    && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.profile \
+    && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.bashrc \
+    && chown -R user:user /app/.npm-global \
+    && npm install -g configurable-http-proxy 
+ 
 # Set up the Conda environment
 ENV CONDA_AUTO_UPDATE_CONDA=false \
     PATH=$HOME/miniconda/bin:$PATH
