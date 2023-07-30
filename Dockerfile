@@ -73,6 +73,12 @@ RUN curl -s "https://api.github.com/repos/coder/code-server/releases/latest" \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
+RUN mkdir /app/.npm-global \
+    && npm config set prefix '/app/.npm-global' \
+    && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.profile \
+    && echo 'export PATH=/app/.npm-global/bin:$PATH' >> ~/.bashrc \
+    && chown -R user:user /app/.npm-global
+
 # Install Node.js and configurable-http-proxy
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs \
