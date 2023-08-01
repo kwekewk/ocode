@@ -42,11 +42,6 @@ RUN adduser --disabled-password --gecos '' --shell /bin/bash user \
  && chown -R user:user /app
 RUN echo "user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-user
 
-#nginx
-RUN mkdir -p /var/cache/nginx /var/log/nginx /var/lib/nginx && \
-    touch /var/run/nginx.pid && \
-    chown -R user:user /var/cache/nginx /var/log/nginx /var/lib/nginx /var/run/nginx.pid
-
 # Fetch the latest version of OpenVSCode Server
 RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/latest \
     | grep "browser_download_url.*linux-x64.tar.gz" \
@@ -137,6 +132,7 @@ RUN --mount=target=requirements.txt,source=requirements.txt \
 
 # Copy the current directory contents into the container at $HOME/app setting the owner to the user
 COPY --chown=user . $HOME/app
+COPY --chown=user --from=caddy:2-alpine /usr/bin/caddy /usr/bin/caddy
 COPY --chown=user nginx.conf /etc/nginx/sites-available/default
 
 RUN chmod +x start_server.sh

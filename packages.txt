@@ -1,7 +1,6 @@
 tree
 neofetch
 neovim
-nginx
 autossh
 tmux
 ripgrep
