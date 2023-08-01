@@ -57,15 +57,6 @@ RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/la
     mkdir -p /app/openvscode-server && \
     tar -xzf /tmp/openvscode-server.tar.gz --strip-components=1 -C /app/openvscode-server 
 
-# Fetch the latest version of Code Server
-RUN curl -s "https://api.github.com/repos/coder/code-server/releases/latest" \
-    | grep "browser_download_url.*linux-amd64.tar.gz" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -qi - -O /tmp/code-server.tar.gz && \
-    mkdir -p /app/code-server && \
-    tar -xzf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1 
-
 # Install Node.js and configurable-http-proxy
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs 
@@ -83,18 +74,6 @@ RUN curl -LO "https://golang.org/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz" && \
 ENV PATH="/usr/local/go/bin:${PATH}" \
     GOPATH="/go" \
     GOBIN="/go/bin"
-
-# Install VS Code
-RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add - \
-    && apt-get update \
-    && apt-get install -y apt-transport-https \
-    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | tee /etc/apt/sources.list.d/vscode.list \
-    && apt-get update \
-    && apt-get install -y code \
-    && rm -rf /var/cache/apt/* \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /var/tmp/* \
-    && rm -rf /tmp/*
 
 USER user
 
@@ -132,7 +111,11 @@ USER root
 RUN --mount=target=/root/packages.txt,source=packages.txt \
     apt-get update && \
     xargs -r -a /root/packages.txt apt-get install -y --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \     
+    && rm -rf /var/cache/apt/* \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/tmp/* \
+    && rm -rf /tmp/*
 
 RUN --mount=target=/root/on_startup.sh,source=on_startup.sh,readwrite \
 	bash /root/on_startup.sh
