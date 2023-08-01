@@ -1,5 +1,7 @@
 #!/bin/bash
 
+service nginx start 
+
 #ssh -o StrictHostKeyChecking=no -R nya:80:localhost:7860 tunne.link -p8043 &
 autossh -M 0 -o "StrictHostKeyChecking=no" -R nya:80:localhost:7860 tunne.link -p8043
 
