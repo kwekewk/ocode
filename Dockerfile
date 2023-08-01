@@ -133,7 +133,6 @@ RUN --mount=target=requirements.txt,source=requirements.txt \
 # Copy the current directory contents into the container at $HOME/app setting the owner to the user
 COPY --chown=user . $HOME/app
 COPY --chown=user --from=caddy:2-alpine /usr/bin/caddy /usr/bin/caddy
-COPY --chown=user nginx.conf /etc/nginx/sites-available/default
 
 RUN chmod +x start_server.sh
 
