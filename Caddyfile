@@ -1,8 +1,5 @@
-localhost:7860 {
-    reverse_proxy localhost:7860
-}
-
-localhost:7860/code {
-    reverse_proxy localhost:8080
+:80 {
+    reverse_proxy /code* localhost:8080
+    reverse_proxy /* localhost:7860
 }
 
