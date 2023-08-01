@@ -1,5 +1,7 @@
 :80 {
-    reverse_proxy /code* localhost:8080
+    reverse_proxy /code/* localhost:8080 {
+      without /code
+    }
     reverse_proxy /* localhost:7860
 }
 
