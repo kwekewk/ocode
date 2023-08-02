@@ -52,10 +52,9 @@ RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/la
     mkdir -p /app/openvscode-server && \
     tar -xzf /tmp/openvscode-server.tar.gz --strip-components=1 -C /app/openvscode-server 
 
-# Install Node.js and configurable-http-proxy
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs 
-   
+# Install NVM and set 16 as default 
+RUN mkdir /app/.nvm ; export NVM_DIR="/app/.nvm" && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash && source "$NVM_DIR/nvm.sh" && nvm install 16 && nvm alias default 16
+
 # Install Golang
 ARG GOLANG_VERSION="1.20"
 RUN curl -LO "https://golang.org/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz" && \
@@ -79,11 +78,6 @@ RUN mkdir $HOME/.cache $HOME/.config \
 && chown -R user:user $HOME \
 && chmod 700 $HOME/.cache $HOME/.config
 
-RUN mkdir /app/.npm-global \
-    && npm config set prefix '/app/.npm-global' \
-    && echo 'export PATH=/app/.npm-global/bin:$PATH' | tee -a ~/.profile ~/.bashrc \
-    && npm install -g configurable-http-proxy 
- 
 # Set up the Conda environment
 ENV CONDA_AUTO_UPDATE_CONDA=false \
     PATH=$HOME/miniconda/bin:$PATH
