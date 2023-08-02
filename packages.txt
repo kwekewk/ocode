@@ -4,5 +4,5 @@ neovim
 autossh
 tmux
 ripgrep
-ping
+iputils-ping
 lsof
