@@ -111,8 +111,7 @@ RUN --mount=target=/root/on_startup.sh,source=on_startup.sh,readwrite \
 
 # NPM Global
 RUN --mount=target=/root/npm_packages.txt,source=npm_packages.txt \
-    xargs -r -a /root/npm_packages.txt /usr/bin/npm install -g
-
+    xargs -r -a /root/npm_packages.txt npm install -g
 
 #######################################
 # End root user section
