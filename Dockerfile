@@ -53,7 +53,7 @@ RUN curl -s https://api.github.com/repos/gitpod-io/openvscode-server/releases/la
     tar -xzf /tmp/openvscode-server.tar.gz --strip-components=1 -C /app/openvscode-server 
 
 # Install NVM and set 16 as default 
-RUN mkdir /app/.nvm ; export NVM_DIR="/app/.nvm" && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash && source "$NVM_DIR/nvm.sh" && nvm install 16 && nvm alias default 16
+RUN mkdir /app/.nvm ; export NVM_DIR="/app/.nvm" && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash && . "$NVM_DIR/nvm.sh" && nvm install 16 && nvm alias default 16
 
 # Install Golang
 ARG GOLANG_VERSION="1.20"
