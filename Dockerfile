@@ -58,8 +58,9 @@ ENV NVM_DIR /app/.nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash \
   && . "$NVM_DIR/nvm.sh" && nvm install 16 && nvm alias default 16
 RUN . "$NVM_DIR/nvm.sh" && node -v && which npm
-
-#RUN mkdir /app/.nvm ; export NVM_DIR="/app/.nvm" && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash && . "$NVM_DIR/nvm.sh" && nvm install 16 && nvm alias default 16
+RUN echo 'export NVM_DIR="/app/.nvm"' >> ~/.bashrc && \
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> ~/.bashrc && \
+    echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"' >> ~/.bashrc
 
 # Install Golang
 ARG GOLANG_VERSION="1.20"
