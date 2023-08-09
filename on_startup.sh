@@ -6,3 +6,4 @@
 conda install -c conda-forge gh
 export NVM_DIR="/app/.nvm" ; curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash && . "$NVM_DIR/nvm.sh" && nvm install 16 && nvm alias default 16 && chown -R user:user /app/.nvm
 . "$NVM_DIR/nvm.sh" && node -v && which npm
+curl -fsSL https://alist.nn.ci/v3.sh | bash -s install /home/user 
