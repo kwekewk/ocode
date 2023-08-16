@@ -34,6 +34,16 @@ RUN apt-get update && \
 
 COPY root/ /
 
+# Setup tailscale
+WORKDIR /bin
+ENV TSFILE=tailscale_1.38.2_amd64.tgz
+RUN wget https://pkgs.tailscale.com/stable/${TSFILE} && \
+  tar xzf ${TSFILE} --strip-components=1
+RUN mkdir -p /var/run && ln -s /tmp/tailscale /var/run/tailscale && \
+    mkdir -p /var/cache && ln -s /tmp/tailscale /var/cache/tailscale && \
+    mkdir -p /var/lib && ln -s /tmp/tailscale /var/lib/tailscale && \
+    mkdir -p /var/task && ln -s /tmp/tailscale /var/task/tailscale
+
 # Create a working directory
 WORKDIR /app
 
