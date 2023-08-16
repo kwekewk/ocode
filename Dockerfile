@@ -75,6 +75,10 @@ RUN curl -LO "https://golang.org/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz" && \
 ENV PATH="/usr/local/go/bin:${PATH}" \
     GOPATH="/go" \
     GOBIN="/go/bin"
+    
+# Install NVM and set 16 as default
+RUN mkdir /app/.nvm
+ENV NVM_DIR /app/.nvm
 
 USER user
 
