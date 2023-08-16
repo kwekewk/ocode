@@ -6,3 +6,4 @@ tmux
 ripgrep
 iputils-ping
 lsof
+socat
